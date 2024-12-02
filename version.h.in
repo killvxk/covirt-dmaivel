@@ -1,0 +1,6 @@
+#pragma once
+
+#define COVIRT_VERSION_MAJOR @covirt_VERSION_MAJOR@
+#define COVIRT_VERSION_MINOR @covirt_VERSION_MINOR@
+#define COVIRT_VERSION_PATCH @covirt_VERSION_PATCH@
+#define COVIRT_VERSION "@covirt_VERSION@"
