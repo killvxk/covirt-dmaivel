@@ -27,7 +27,7 @@ if (NOT LIEF_FOUND)
     FetchContent_Declare(
         LIEF
         GIT_REPOSITORY https://github.com/lief-project/LIEF
-        GIT_TAG v0.15.1
+        GIT_TAG 0.15.1
     )
 
     FetchContent_MakeAvailable(LIEF)
