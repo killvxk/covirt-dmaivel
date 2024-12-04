@@ -95,7 +95,7 @@ void covirt::vm::v0_vm::get_size_from_opcode(zasm::x86::Assembler& a, zasm::Labe
     a.bind(start);
     a.movzx(zasm::x86::rcx, zasm::x86::byte_ptr(vip));
     a.shr(zasm::x86::cl, 6);
-    a.inc(vip);
+    a.add(vip, 1);
 }
 
 void covirt::vm::v0_vm::get_vreg_address(zasm::x86::Assembler& a)
@@ -104,7 +104,7 @@ void covirt::vm::v0_vm::get_vreg_address(zasm::x86::Assembler& a)
     a.sub(zasm::x86::r9, 16*8);
     a.movzx(zasm::x86::r10, zasm::x86::byte_ptr(vip));
     a.lea(zasm::x86::rdx, zasm::x86::qword_ptr(zasm::x86::r9, zasm::x86::r10, 8));
-    a.inc(vip);
+    a.add(vip, 1);
 }
 
 void covirt::vm::v0_vm::get_vreg_value(zasm::x86::Assembler& a)
@@ -113,7 +113,7 @@ void covirt::vm::v0_vm::get_vreg_value(zasm::x86::Assembler& a)
     a.sub(zasm::x86::r9, 16*8);
     a.movzx(zasm::x86::r10, zasm::x86::byte_ptr(vip));
     a.mov(zasm::x86::rdx, zasm::x86::qword_ptr(zasm::x86::r9, zasm::x86::r10, 8));
-    a.inc(vip);
+    a.add(vip, 1);
 }
 
 // to-do: ugly code, refactor plz, this was rush job

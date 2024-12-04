@@ -278,7 +278,7 @@ namespace covirt::vm {
                 uint8_t(v0_op::vm_exit), [&](zasm::x86::Assembler& a) {
                     a.bind(global_labels["vexit"]);
 
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.mov(zasm::x86::r10w, zasm::x86::word_ptr(vip));
                     a.add(zasm::x86::word_ptr(zasm::x86::rip, global_labels["retaddr"]), zasm::x86::r10w);
 
@@ -603,7 +603,7 @@ namespace covirt::vm {
             {
                 uint8_t(v0_op::jmp), [&](zasm::x86::Assembler& a) {
                     a.bind(global_labels["vjmp"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rcx, zasm::x86::word_ptr(vip));
                     a.lea(vip, zasm::x86::qword_ptr(zasm::x86::rip, global_labels["vcode"]));
                     a.add(vip, zasm::x86::rcx);
@@ -615,7 +615,7 @@ namespace covirt::vm {
                     auto vnext = a.createLabel(), truth = a.createLabel();
 
                     a.bind(global_labels["vjz"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rdx, zasm::x86::word_ptr(vsp)); // ZF = 1?
                     a.and_(zasm::x86::rdx, 0x0040);
                     a.test(zasm::x86::rdx, zasm::x86::rdx);
@@ -637,7 +637,7 @@ namespace covirt::vm {
                     auto vnext = a.createLabel(), truth = a.createLabel();
 
                     a.bind(global_labels["vjnz"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rdx, zasm::x86::word_ptr(vsp)); // ZF = 0?
                     a.and_(zasm::x86::rdx, 0x0040);
                     a.test(zasm::x86::rdx, zasm::x86::rdx);
@@ -659,7 +659,7 @@ namespace covirt::vm {
                     auto vnext = a.createLabel(), truth = a.createLabel();
 
                     a.bind(global_labels["vjb"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rdx, zasm::x86::word_ptr(vsp)); // CF = 1?
                     a.and_(zasm::x86::rdx, 0x0001);
                     a.test(zasm::x86::rdx, zasm::x86::rdx);
@@ -681,7 +681,7 @@ namespace covirt::vm {
                     auto vnext = a.createLabel(), truth = a.createLabel();
 
                     a.bind(global_labels["vjnb"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rdx, zasm::x86::word_ptr(vsp)); // CF = 0?
                     a.and_(zasm::x86::rdx, 0x0001);
                     a.test(zasm::x86::rdx, zasm::x86::rdx);
@@ -703,7 +703,7 @@ namespace covirt::vm {
                     auto vnext = a.createLabel(), truth = a.createLabel();
 
                     a.bind(global_labels["vjbe"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rdx, zasm::x86::word_ptr(vsp)); // CF = 1?
                     a.and_(zasm::x86::rdx, 0x0001);
                     a.test(zasm::x86::rdx, zasm::x86::rdx);
@@ -729,7 +729,7 @@ namespace covirt::vm {
                     auto vnext = a.createLabel(), truth = a.createLabel(), ntruth = a.createLabel();
 
                     a.bind(global_labels["vjnbe"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rdx, zasm::x86::word_ptr(vsp)); // CF = 0?
                     a.and_(zasm::x86::rdx, 0x0001);
                     a.test(zasm::x86::rdx, zasm::x86::rdx);
@@ -757,7 +757,7 @@ namespace covirt::vm {
                     auto vnext = a.createLabel(), truth = a.createLabel();
 
                     a.bind(global_labels["vjl"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rdx, zasm::x86::word_ptr(vsp)); // or SF != OF?
                     a.and_(zasm::x86::rdx, 0x0880);
                     a.popcnt(zasm::x86::rdx, zasm::x86::rdx);
@@ -780,7 +780,7 @@ namespace covirt::vm {
                     auto vnext = a.createLabel(), truth = a.createLabel();
 
                     a.bind(global_labels["vjle"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rdx, zasm::x86::word_ptr(vsp)); // ZF = 1?
                     a.and_(zasm::x86::rdx, 0x0040);
                     a.test(zasm::x86::rdx, zasm::x86::rdx);
@@ -807,7 +807,7 @@ namespace covirt::vm {
                     auto vnext = a.createLabel(), truth = a.createLabel();
 
                     a.bind(global_labels["vjnl"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rdx, zasm::x86::word_ptr(vsp)); // or SF == OF?
                     a.and_(zasm::x86::rdx, 0x0880);
                     a.popcnt(zasm::x86::rdx, zasm::x86::rdx);
@@ -830,7 +830,7 @@ namespace covirt::vm {
                     auto vnext = a.createLabel(), truth = a.createLabel(), ntruth = a.createLabel();
 
                     a.bind(global_labels["vjnle"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rdx, zasm::x86::word_ptr(vsp)); // ZF = 0?
                     a.and_(zasm::x86::rdx, 0x0040);
                     a.test(zasm::x86::rdx, zasm::x86::rdx);
@@ -857,7 +857,7 @@ namespace covirt::vm {
             {
                 uint8_t(v0_op::call), [&](zasm::x86::Assembler& a) {
                     a.bind(global_labels["vcall"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.mov(zasm::x86::r11, zasm::x86::qword_ptr(zasm::x86::rip, global_labels["retaddr"]));
                     a.movsxd(zasm::x86::r9, zasm::x86::dword_ptr(vip));
                     a.add(zasm::x86::r11, zasm::x86::r9);
@@ -935,7 +935,7 @@ namespace covirt::vm {
             {
                 uint8_t(v0_op::lea), [&](zasm::x86::Assembler& a) {
                     a.bind(global_labels["vlea"]);
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movsxd(zasm::x86::ecx, zasm::x86::dword_ptr(vip));
                     a.add(vip, 4);
                     a.add(zasm::x86::rcx, zasm::x86::qword_ptr(zasm::x86::rip, global_labels["retaddr"]));
@@ -952,11 +952,11 @@ namespace covirt::vm {
                     auto native_code_section = a.createLabel();
                     auto done = a.createLabel();
                     
-                    a.inc(vip);
+                    a.add(vip, 1);
                     a.movzx(zasm::x86::rcx, zasm::x86::byte_ptr(vip));
                     a.lea(zasm::x86::rdx, zasm::x86::qword_ptr(zasm::x86::rip, native_code_section));
 
-                    a.inc(vip);
+                    a.add(vip, 1);
 
                     // to-do: use rep movsb? (bc currently mba is hardcoded to use rdi)
                     //
@@ -965,9 +965,9 @@ namespace covirt::vm {
                     a.jz(done);
                     a.mov(zasm::x86::r9b, zasm::x86::byte_ptr(vip));
                     a.mov(zasm::x86::byte_ptr(zasm::x86::rdx), zasm::x86::r9b);
-                    a.inc(zasm::x86::rdx);
-                    a.inc(vip);
-                    a.dec(zasm::x86::rcx);
+                    a.add(zasm::x86::rdx, 1);
+                    a.add(vip, 1);
+                    a.sub(zasm::x86::rcx, 1);
                     a.jmp(loop);
                     a.bind(done);
 
