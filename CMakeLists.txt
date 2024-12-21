@@ -47,4 +47,4 @@ endif()
 file(GLOB_RECURSE COVIRT_GLOB_SRC CONFIGURE_DEPENDS "covirt/*.cpp")
 
 add_executable(covirt ${COVIRT_GLOB_SRC})
-target_link_libraries(covirt LIEF Zydis zasm)
+target_link_libraries(covirt LIEF::LIEF Zydis zasm)

@@ -35,7 +35,6 @@ void covirt::smc_pass::pass(zasm::Program &p, zasm::x86::Assembler &a)
     zasm::x86::Assembler mini_assembler(mini_program);
     zasm::Serializer serializer{};
     
-    auto x = p.getHead();
     for (auto node = p.getHead(); node != p.getTail(); node = node->getNext()) {
         node->visit([&](auto &&x) {
             bar.set_progress(size_t(float(float(curnt_count++) / total_count) * 100));
@@ -56,7 +55,7 @@ void covirt::smc_pass::pass(zasm::Program &p, zasm::x86::Assembler &a)
             // 
             if (instruction.getMnemonic() == zasm::x86::Mnemonic::Pop)
                 return;
-            
+
             // we need these to stick around because they get overwritten when we do native execution
             //
             if (instruction.getMnemonic() == zasm::x86::Mnemonic::Nop)
