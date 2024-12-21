@@ -39,6 +39,8 @@ cmake ..
 cmake --build . --config Release
 ```
 
+If you are compiling on Windows via Visual Studio, you must use `clang-cl`: `cmake .. -T ClangCL -A x64`.
+
 # Usage
 
 ```bash
