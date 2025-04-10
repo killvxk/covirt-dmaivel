@@ -26,10 +26,10 @@ size_t covirt::default_vm_enter::get_length()
 
 void covirt::default_vm_enter::assemble_effects(zasm::x86::Assembler &a)
 {
-    a.sub(zasm::x86::rsp, 0x200);
+    //a.sub(zasm::x86::rsp, 0x200);
 }
 
 void covirt::default_vm_enter::revert_effects(zasm::x86::Assembler &a)
 {
-    a.add(zasm::x86::rsp, 0x200);
+    //a.add(zasm::x86::rsp, 0x200);
 }

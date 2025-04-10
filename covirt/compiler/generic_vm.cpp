@@ -12,14 +12,14 @@ std::pair<std::vector<uint8_t>, std::size_t> covirt::generic_vm::assemble(std::v
     zasm::Serializer serializer{};
 
     initialize(assembler);
-    for (auto && [opcode, handler] : get_handlers())
+    for (auto& handler : get_handlers() | std::views::values)
         handler(assembler);
     finalize(assembler);
 
     for (auto &apply_transform : passes)
         apply_transform->pass(program, assembler);
 
-    auto res = serializer.serialize(program, 0);
+    const auto res = serializer.serialize(program, 0);
     out::assertion(res == zasm::ErrorCode::None, "failed to serialize vm: {}:{}", res.getErrorName(), res.getErrorMessage());
 
     size_t size = 0;

@@ -39,7 +39,7 @@ namespace covirt {
 
         int register_index(bool use_index = false);
         
-        constexpr int64_t immediate()
+    	int64_t immediate()
         {
             out::assertion(is_immediate(), "zydis_operand is not an immediate");
             return as_immediate().value.s;

@@ -73,6 +73,12 @@ namespace covirt::vm {
         std::map<ZydisMnemonic, fn_instruction_translator_t> lift_impl = {
             {
                 ZYDIS_MNEMONIC_MOV, [&](covirt::zydis_operand &dst, covirt::zydis_operand &src) {
+                    //if (dst.is_memory())
+                    //{
+	                   // const auto mem = dst.as_memory();
+                    //    if (mem.base != ZYDIS_REGISTER_NONE && mem.index != ZYDIS_REGISTER_NONE)
+                    //        return false;
+                    //}
                     push_operand(src, dst.size);
                     pop_operand(dst, {}, src);
                     return true;
@@ -237,6 +243,7 @@ namespace covirt::vm {
                     a.pop(zasm::x86::r11);
                     a.mov(zasm::x86::qword_ptr(zasm::x86::rip, global_labels["retaddr"]), zasm::x86::r11);
                     a.pop(zasm::x86::r11);
+                    a.add(zasm::x86::rsp, 0x200);
                     a.mov(zasm::x86::qword_ptr(zasm::x86::rip, global_labels["saved_rsp"]), zasm::x86::rsp);
 
                     // to-do: save r9, r10 before?
@@ -260,11 +267,11 @@ namespace covirt::vm {
                     a.push(zasm::x86::rdi); // -72
                     a.push(zasm::x86::rsi); // -80
                     a.push(zasm::x86::rbp); // -88
-                    a.push(zasm::x86::qword_ptr(zasm::x86::rip, global_labels["saved_rsp"])); // -96
+                    a.push(zasm::x86::qword_ptr(zasm::x86::rip, global_labels["saved_rsp"])); // -96 v4!=real_rsp,so xx not xxx
                     a.push(zasm::x86::rbx); // -104
-                    a.push(zasm::x86::rdx); // -112
-                    a.push(zasm::x86::rcx); // -120
-                    a.push(zasm::x86::rax); // -128
+                    a.push(zasm::x86::rdx); // -112 v2
+                    a.push(zasm::x86::rcx); // -120 v1 
+                    a.push(zasm::x86::rax); // -128 v0
                     a.pushfq(); // -136
 
                     a.lea(vsp, zasm::x86::qword_ptr(zasm::x86::rip, global_labels["vstack"]));
@@ -997,6 +1004,7 @@ namespace covirt::vm {
                     a.pop(zasm::x86::r13);
                     a.pop(zasm::x86::r14);
                     a.pop(zasm::x86::r15);
+                    
 
                     vm_enter_emitter.revert_effects(a);
 

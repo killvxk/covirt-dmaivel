@@ -88,7 +88,7 @@ void covirt::mba_pass::pass(zasm::Program &p, zasm::x86::Assembler &a)
                 if (op0.get<zasm::Reg>().as<zasm::x86::Gp>() == zasm::x86::rsp)
                     return;
             }
-
+#if 1
             if (mnemonic != zasm::x86::Mnemonic::Mov) {
                 // to-do: investigate why combining `transform_constant` with variables
                 // results in such stupid undefined behavior, only *half* of the time...
@@ -110,6 +110,7 @@ void covirt::mba_pass::pass(zasm::Program &p, zasm::x86::Assembler &a)
                     for (auto& [match, transform] : mba_transformations)
                         exp = exp.transform(match, transform);
             }
+#endif
 
             std::vector<zasm::x86::Gp> avail = { zasm::x86::r15, zasm::x86::r14, zasm::x86::r13, zasm::x86::r12, zasm::x86::r8, zasm::x86::rdi, zasm::x86::rbx };
             if (instruction.getOperandCount() == 2) {

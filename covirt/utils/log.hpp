@@ -23,7 +23,8 @@ namespace out {
     {
         auto now = std::chrono::system_clock::now();
         auto now_time_t = std::chrono::system_clock::to_time_t(now);
-        std::tm now_tm = *std::localtime(&now_time_t);
+        std::tm now_tm;
+    	localtime_s(&now_tm,&now_time_t);
         return std::format("{}{:04}-{:02}-{:02} {:02}:{:02}:{:02}{}", COLOR_INPUT,
                         now_tm.tm_year + 1900, now_tm.tm_mon + 1, now_tm.tm_mday,
                         now_tm.tm_hour, now_tm.tm_min, now_tm.tm_sec, COLOR_RESET);

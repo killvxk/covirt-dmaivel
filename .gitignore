@@ -1,3 +1,54 @@
-build/
-.*/
-.clangd
+# Delphi local files (user-specific info)
+*.local
+*.identcache
+
+# Delphi history and backups
+__history/
+*.~*
+
+# Compiled binaries
+*.dcu
+*.exe
+*.dll
+*.msi
+
+# MSI local stuff
+*.wixobj
+*.wixpdb
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Bb]uild/
+[Rr]eleases/
+.vs/
+.vs/
+.idea/
+/bin/
+/pkg/
+/Release/
+/Debug/
+packages/
+*.pch
+*.obj
+*.pdb
+*.tlog
+*.iobj
+*.ipdb
+*.res
+*.log
+*.recipe
+*.exp
+*.aps
+*.tlb
+*.idb
+*.tmp
+*.ini
+*.csv
+*.lib
+*.txt
+*.tlh
+*.cs
+*.jpg
+*.cache
+*.lock
+make_*.bat

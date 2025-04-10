@@ -1,5 +1,6 @@
 #pragma once
 
+#include <LIEF/Abstract/Binary.hpp>
 #include <LIEF/LIEF.hpp>
 #include <LIEF/ELF/Binary.hpp>
 #include <LIEF/ELF/Section.hpp>
